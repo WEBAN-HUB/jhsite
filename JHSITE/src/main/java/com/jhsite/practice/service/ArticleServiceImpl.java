@@ -3,6 +3,8 @@ package com.jhsite.practice.service;
 import java.util.List;
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
+
+import com.jhsite.practice.commons.paging.Criteria;
 import com.jhsite.practice.domain.ArticleVO;
 import com.jhsite.practice.persistence.ArticleDAO;
 
@@ -39,4 +41,15 @@ public class ArticleServiceImpl implements ArticleService {
 	public List<ArticleVO> listAll() throws Exception {
 		return articleDAO.listAll();
 	}
+
+	@Override
+	public List<ArticleVO> listCriteria(Criteria criteria) throws Exception {
+		return articleDAO.listCriteria(criteria);
+	}
+
+	@Override
+	public int countArticles(Criteria criteria) throws Exception {
+		return articleDAO.countArticles(criteria);
+	}
+
 }

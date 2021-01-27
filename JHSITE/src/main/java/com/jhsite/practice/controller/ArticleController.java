@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.jhsite.practice.commons.paging.Criteria;
+import com.jhsite.practice.commons.paging.PageMaker;
 import com.jhsite.practice.domain.ArticleVO;
 import com.jhsite.practice.service.ArticleService;
 
@@ -47,7 +49,7 @@ public class ArticleController {
 	// 목록 페이지 이동
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model) throws Exception {
-		System.out.println( org.springframework.core.SpringVersion.getVersion() ); 
+		System.out.println(org.springframework.core.SpringVersion.getVersion());
 
 		logger.info("list ...");
 		model.addAttribute("articles", articleService.listAll());
@@ -88,5 +90,26 @@ public class ArticleController {
 		redirectAttributes.addFlashAttribute("msg", "delSuccess");
 		return "redirect:/article/list";
 	}
+
+	@RequestMapping(value = "/listCriteria", method = RequestMethod.GET)
+	public String listCriteria(Model model, Criteria criteria) throws Exception {
+		logger.info("listCriteria ...");
+		model.addAttribute("articles", articleService.listCriteria(criteria));
+		return "/article/list_criteria";
+	}
+
+	@RequestMapping(value = "/listPaging", method = RequestMethod.GET)
+	public String listPaging(Model model, Criteria criteria) throws Exception {
+		logger.info("listPaging ...");
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCriteria(criteria);
+		pageMaker.setTotalCount(articleService.countArticles(criteria));
+		model.addAttribute("articles", articleService.listCriteria(criteria));
+		model.addAttribute("pageMaker", pageMaker);
+		return "/article/list_paging";
+	}
+	
+	
+	
 
 }

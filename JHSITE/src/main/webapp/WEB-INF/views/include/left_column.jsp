@@ -23,21 +23,26 @@
 				data-widget="treeview" role="menu" data-accordion="false">
 				<!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 				<li class="nav-item has-treeview menu-open"><a href="#"
-					class="nav-link active"> <i
-						class="nav-icon fas fa-tachometer-alt"></i>
+					class="nav-link"> <i class="nav-icon fas fa-tachometer-alt"></i>
 						<p>
 							Starter Pages <i class="right fas fa-angle-left"></i>
 						</p>
 				</a>
 					<ul class="nav nav-treeview">
 						<li class="nav-item"><a href="${path}/article/write"
-							class="nav-link active"> <i class="far fa-circle nav-icon"></i>
+							class="nav-link"> <i class="far fa-circle nav-icon"></i>
 								<p>Write Page</p>
 						</a></li>
 						<li class="nav-item"><a href="${path}/article/list"
 							class="nav-link"> <i class="far fa-circle nav-icon"></i>
 								<p>List Page</p>
 						</a></li>
+						<!-- List Paging 목록 버튼 추가 -->
+						<li class="nav-item"><a href="${path}/article/listPaging"
+							class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<p>List Paging Page</p>
+						</a></li>
+						<!-- ------------------------- -->
 					</ul></li>
 				<li class="nav-item"><a href="#" class="nav-link"> <i
 						class="nav-icon fas fa-th"></i>

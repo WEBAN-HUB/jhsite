@@ -3,53 +3,54 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.jhsite.practice.mappers.article.ArticleMapper">
+<mapper
+	namespace="com.jhsite.practice.mappers.article.ArticleMapper">
 
 	<insert id="create">
-		 INSERT INTO tb_article ( 
-			 article_no 
-			 , title 
-			 , content 
-			 , writer 
-			 , regdate 
-			 , viewcnt 
-		 ) VALUES ( 
-			 #{article_no} 
-			 , #{title} 
-			 , #{content} 
-			 , #{writer} 
-			 , #{regDate} 
-			 , #{viewCnt} 
-		 )
+		INSERT INTO tb_article (
+		article_no
+		, title
+		, content
+		, writer
+		, regdate
+		, viewcnt
+		) VALUES (
+		#{article_no}
+		, #{title}
+		, #{content}
+		, #{writer}
+		, #{regDate}
+		, #{viewCnt}
+		)
 	</insert>
-	
-	<select id="read" resultMap="ArticleResultMap"> 
-		SELECT 
-			article_no 
-			, title 
-			, content
-			, writer 
-			, regdate 
-			, viewcnt 
-		FROM 
-			tb_article 
+
+	<select id="read" resultMap="ArticleResultMap">
+		SELECT
+		article_no
+		, title
+		, content
+		, writer
+		, regdate
+		, viewcnt
+		FROM
+		tb_article
 		WHERE article_no = #{article_no}
 	</select>
-	
-	<update id="update"> 
-		UPDATE tb_article 
-		SET 
-			title = #{title} 
-			, content = #{content}
-		WHERE 
-			article_no = #{article_no}
+
+	<update id="update">
+		UPDATE tb_article
+		SET
+		title = #{title}
+		, content = #{content}
+		WHERE
+		article_no = #{article_no}
 	</update>
-	
+
 	<delete id="delete">
-		DELETE FROM tb_article 
+		DELETE FROM tb_article
 		WHERE article_no = #{article_no}
 	</delete>
-	
+
 	<select id="listAll" resultType="ArticleVO"> 
 		<![CDATA[ 
 			SELECT 
@@ -64,19 +65,56 @@
 			 ORDER BY article_no DESC, regdate DESC 
 			 ]]>
 	</select>
-	
-	
-<!-- 	
-resultMap을 사용하는 경우는 Java 객체의 변수명과 DB Column명이 다를 경우입니다. 
-Java 객체의 변수명과 DB Column명이 일치하지 않을 경우 select 쿼리의 경우 
-원하는 결과값을 가져올 수 없습니다. 이런 경우 SQL Aliases를 사용해서 해결가능은 하겠지만,
- 불일치하는 번수가 많을수록 매번 SQL Aliases를 사용하기에는 번거롭지 않을 수 없습니다. 
 
- 그래서 이러한 번거로움을 없애기 위해 resultMap을 사용해서 
- Java 변수명과 DB Column명을 일치시켜주는 작업을 해주고 
- select 쿼리의 resultType속성 대신 resultMap 속성을 사용합니다.  
 
- -->
+	<select id="listPaging" resultMap="ArticleResultMap">
+	 <![CDATA[
+	  SELECT 
+	  	article_no,
+	  	title,
+	  	content,
+	    writer,
+	  	regdate,
+	  	viewcnt
+	  FROM tb_article 
+	  WHERE article_no > 0 
+	  ORDER BY article_no DESC, regdate DESC 
+	  LIMIT #{page}, 10 
+	  ]]>
+	</select>
+
+	<select id="listCriteria" resultMap="ArticleResultMap">
+	 <![CDATA[
+	  SELECT 
+	  	article_no, 
+	  	title, 
+	  	content, 
+	  	writer, 
+	  	regdate, 
+	  	viewcnt 
+	  FROM tb_article 
+	  WHERE article_no > 0 
+	  ORDER BY article_no DESC, regdate DESC 
+	  LIMIT #{pageStart}, #{perPageNum} 
+	  ]]>
+	</select>
+	
+	<select id="countArticles" resultType="int"> 
+		<![CDATA[ 
+		SELECT 
+			COUNT(article_no) 
+			FROM tb_article 
+			WHERE article_no > 0 
+		]]> 
+	</select>
+
+
+
+	<!-- resultMap을 사용하는 경우는 Java 객체의 변수명과 DB Column명이 다를 경우입니다. Java 객체의 변수명과 
+		DB Column명이 일치하지 않을 경우 select 쿼리의 경우 원하는 결과값을 가져올 수 없습니다. 이런 경우 SQL Aliases를 
+		사용해서 해결가능은 하겠지만, 불일치하는 번수가 많을수록 매번 SQL Aliases를 사용하기에는 번거롭지 않을 수 없습니다. 그래서 
+		이러한 번거로움을 없애기 위해 resultMap을 사용해서 Java 변수명과 DB Column명을 일치시켜주는 작업을 해주고 select 
+		쿼리의 resultType속성 대신 resultMap 속성을 사용합니다. -->
 	<resultMap id="ArticleResultMap" type="ArticleVO">
 		<id property="article_no" column="article_no" />
 		<result property="title" column="title" />
