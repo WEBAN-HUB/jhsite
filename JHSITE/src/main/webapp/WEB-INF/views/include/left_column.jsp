@@ -25,7 +25,7 @@
 				<li class="nav-item has-treeview menu-open"><a href="#"
 					class="nav-link"> <i class="nav-icon fas fa-tachometer-alt"></i>
 						<p>
-							Starter Pages <i class="right fas fa-angle-left"></i>
+							Basic CRUD Board <i class="right fas fa-angle-left"></i>
 						</p>
 				</a>
 					<ul class="nav nav-treeview">
@@ -37,19 +37,50 @@
 							class="nav-link"> <i class="far fa-circle nav-icon"></i>
 								<p>List Page</p>
 						</a></li>
+					</ul></li>
+
+				<li class="nav-item has-treeview menu-open"><a href="#"
+					class="nav-link"> <i class="nav-icon fas fa-tachometer-alt"></i>
+						<p>
+							Paging CRUD Board <i class="right fas fa-angle-left"></i>
+						</p>
+				</a>
+
+					<ul class="nav nav-treeview">
+						<li class="nav-item"><a href="${path}/article/paging/write"
+							class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<p>Write Page</p>
+						</a></li>
+
 						<!-- List Paging 목록 버튼 추가 -->
-						<li class="nav-item"><a href="${path}/article/listPaging"
+						<li class="nav-item"><a href="${path}/article/paging/list"
 							class="nav-link"> <i class="far fa-circle nav-icon"></i>
 								<p>List Paging Page</p>
 						</a></li>
 						<!-- ------------------------- -->
 					</ul></li>
-				<li class="nav-item"><a href="#" class="nav-link"> <i
-						class="nav-icon fas fa-th"></i>
+
+				<li class="nav-item has-treeview menu-open"><a href="#"
+					class="nav-link"> <i class="nav-icon fas fa-tachometer-alt"></i>
 						<p>
-							Simple Link <span class="right badge badge-danger">New</span>
+							Paging Search Board <i class="right fas fa-angle-left"></i>
 						</p>
-				</a></li>
+				</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item"><a
+							href="${path}/article/paging/search/write" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Write Page</p>
+						</a></li>
+						<!-- List Paging 목록 버튼 추가 -->
+						<li class="nav-item"><a
+							href="${path}/article/paging/search/list" class="nav-link"> <i
+								class="far fa-circle nav-icon"></i>
+								<p>List Paging Search Page</p>
+						</a></li>
+					</ul></li>
+
+
 			</ul>
 		</nav>
 		<!-- /.sidebar-menu -->

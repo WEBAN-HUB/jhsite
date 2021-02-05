@@ -13,6 +13,7 @@ public class CommonExceptionAdvice {
 	@ExceptionHandler(Exception.class)
 	public ModelAndView commonException(Exception e) {
 		logger.info(e.toString());
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("exception", e);
 		modelAndView.setViewName("/commons/common_error");

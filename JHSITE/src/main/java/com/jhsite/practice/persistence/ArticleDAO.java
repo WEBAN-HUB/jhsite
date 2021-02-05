@@ -3,6 +3,7 @@ package com.jhsite.practice.persistence;
 import java.util.List;
 
 import com.jhsite.practice.commons.paging.Criteria;
+import com.jhsite.practice.commons.paging.SearchCriteria;
 import com.jhsite.practice.domain.ArticleVO;
 
 public interface ArticleDAO {
@@ -23,5 +24,8 @@ public interface ArticleDAO {
 
 	int countArticles(Criteria criteria) throws Exception;
 
-	
+	List<ArticleVO> listSearch(SearchCriteria searchCriteria) throws Exception;
+
+	int countSearchedArticles(SearchCriteria searchCriteria) throws Exception;
+
 }
