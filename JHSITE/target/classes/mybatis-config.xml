@@ -7,6 +7,7 @@
 
 	<typeAliases>
 		<typeAlias type="com.jhsite.practice.domain.ArticleVO" alias="ArticleVO" />
+		<typeAlias type="com.jhsite.practice.domain.ReplyVO" alias="ReplyVO"/>
 	</typeAliases>
 
 </configuration>
