@@ -3,6 +3,8 @@ package com.jhsite.practice.service;
 import java.util.List;
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jhsite.practice.commons.paging.Criteria;
 import com.jhsite.practice.commons.paging.SearchCriteria;
@@ -23,8 +25,10 @@ public class ArticleServiceImpl implements ArticleService {
 		articleDAO.create(articleVO);
 	}
 
+	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public ArticleVO read(Integer article_no) throws Exception {
+		articleDAO.updateViewCnt(article_no);
 		return articleDAO.read(article_no);
 	}
 

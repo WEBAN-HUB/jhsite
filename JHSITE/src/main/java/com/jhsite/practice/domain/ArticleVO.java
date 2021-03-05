@@ -10,6 +10,15 @@ public class ArticleVO {
 	private String writer;
 	private Date regDate;
 	private int viewCnt;
+	private int replyCnt;
+
+	public int getReplyCnt() {
+		return replyCnt;
+	}
+
+	public void setReplyCnt(int replyCnt) {
+		this.replyCnt = replyCnt;
+	}
 
 	public Integer getArticle_no() {
 		return article_no;
@@ -62,6 +71,6 @@ public class ArticleVO {
 	@Override
 	public String toString() {
 		return "ArticleVO [article_no=" + article_no + ", title=" + title + ", content=" + content + ", writer="
-				+ writer + ", regDate=" + regDate + ", viewCnt=" + viewCnt + "]";
+				+ writer + ", regDate=" + regDate + ", viewCnt=" + viewCnt + ", replyCnt=" + replyCnt + "]";
 	}
 }

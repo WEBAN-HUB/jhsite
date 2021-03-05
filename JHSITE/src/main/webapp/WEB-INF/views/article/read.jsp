@@ -103,6 +103,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		<%@ include file="../include/main_footer.jsp"%>
 	</div>
 	<!-- ./wrapper -->
+	
+	
+	<%@ include file="../include/plugin_js.jsp"%>
 
 	<!-- REQUIRED SCRIPTS -->
 	<script>
@@ -124,6 +127,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		});
 	</script>
 	
-	<%@ include file="../include/plugin_js.jsp"%>
+
 </body>
 </html>

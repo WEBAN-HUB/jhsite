@@ -49,7 +49,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<div class="container-fluid">
 					<div class="col-lg-12">
 						<form role="form" id="writeForm" method="post"
-							action="${path}/article/modify">
+							action="${path}/article/paging/search/modify">
 							<div class="card">
 								<div class="card-header">
 									<h3 class="card-title">게시글 작성</h3>
@@ -116,6 +116,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	</div>
 	<!-- ./wrapper -->
 
+	<%@ include file="../../include/plugin_js.jsp"%>
+
 	<!-- REQUIRED SCRIPTS -->
 	<script>
 		$(document)
@@ -138,6 +140,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						});
 	</script>
 
-	<%@ include file="../../include/plugin_js.jsp"%>
+
 </body>
 </html>
