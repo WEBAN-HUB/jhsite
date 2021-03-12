@@ -64,7 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											pattern="yyyy-MM-dd" value="${article.regDate}" /></span>
 								</div>
 							</div>
-							<div class="card-footer">
+							<div class="box-footer">
 								<form role="form" method="post">
 									<input type="hidden" name="article_no"
 										value="${article.article_no}"> <input type="hidden"
@@ -73,41 +73,55 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										value="${searchCriteria.perPageNum}"> <input
 										type="hidden" name="searchType"
 										value="${searchCriteria.searchType}"> <input
-										type="hidden" nae="keyword" value="${searchCriteria.keyword}">
+										type="hidden" name="keyword" value="${searchCriteria.keyword}">
 								</form>
 								<button type="submit" class="btn btn-primary listBtn">
 									<i class="fa fa-list"></i> 목록
 								</button>
-								<div class="pull-right">
-									<button type="submit" class="btn btn-warning modBtn">
-										<i class="fa fa-edit"></i> 수정
-									</button>
-									<button type="submit" class="btn btn-danger delBtn">
-										<i class="fa fa-trash"></i> 삭제
-									</button>
+								<c:if test="${login.userId == article.writer}">
+									<div class="pull-right">
+										<button type="submit" class="btn btn-warning modBtn">
+											<i class="fa fa-edit"></i> 수정
+										</button>
+										<button type="submit" class="btn btn-danger delBtn">
+											<i class="fa fa-trash"></i> 삭제
+										</button>
+									</div>
+								</c:if>
+							</div>
+
+
+							<div class="card">
+								<div class="card-body">
+									<c:if test="${not empty login}">
+										<form class="form-horizontal">
+											<div class="row">
+												<div class="form-group col-sm-8">
+													<input class="form-control input-sm" id="newReplyText"
+														type="text" placeholder="댓글 입력...">
+												</div>
+												<div class="form-group col-sm-2" hidden>
+													<input class="form-control input-sm" id="newReplyWriter"
+														type="text" value="${login.userId}" readonly>
+												</div>
+												<div class="form-group col-sm-2">
+													<button type="button"
+														class="btn btn-primary btn-sm btn-block replyAddBtn">
+														<i class="fa fa-save"></i> 저장
+													</button>
+												</div>
+											</div>
+										</form>
+									</c:if>
+									<c:if test="${empty login}">
+										<a href="${path}/user/login" class="btn btn-default btn-block"
+											role="button"> <i class="fa fa-edit"></i> 로그인 한 사용자만 댓글
+											등록이 가능합니다.
+										</a>
+									</c:if>
 								</div>
 							</div>
 
-							<div class="card-body">
-								<form class="form-horizontal">
-									<div class="row">
-										<div class="form-group col-sm-8">
-											<input class="form-control input-sm" id="newReplyText"
-												type="text" placeholder="댓글 입력...">
-										</div>
-										<div class="form-group col-sm-2">
-											<input class="form-control input-sm" id="newReplyWriter"
-												type="text" placeholder="작성자">
-										</div>
-										<div class="form-group col-sm-2">
-											<button type="button"
-												class="btn btn-primary btn-sm btn-block replyAddBtn">
-												<i class="fa fa-save"></i> 저장
-											</button>
-										</div>
-									</div>
-								</form>
-							</div>
 
 							<div class="card card-primary card-outline">
 								<%--댓글 유무 / 댓글 갯수 / 댓글 펼치기, 접기--%>
@@ -229,6 +243,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										: minutes;
 								return year + "-" + month + "-" + date;
 							});
+
+							Handlebars
+									.registerHelper(
+											"eqReplyWriter",
+											function(reply_writer, block) {
+												var accum = "";
+												if (reply_writer === "${login.userId}") {
+													accum += block.fn();
+												}
+												return accum;
+											});
+
 							// 댓글 목록 함수 호출 
 							getReplies("${path}/replies/" + article_no + "/"
 									+ replyPageNum);
@@ -455,25 +481,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 	<script id="replyTemplate" type="text/x-handlebars-template"> 
 		{{#each.}} 
-			<div class="post replyDiv" data-reply_no={{reply_no}}>
-				 <div class="user-block">
-					 <img class="img-circle img-bordered-sm" src="${path}/resources/dist/img/user1-128x128.jpg" alt="user image">
-					 <span class="username"> 
-						<a href="#">{{reply_writer}}</a> 
-						<a href="#" class="float-right btn-box-tool replyDelBtn" data-toggle="modal" data-target="#delModal"> 
-							<i class="fa fa-times"> 삭제</i> 
-						</a> 
-						<a href="#" class="float-right btn-box-tool replyModBtn" data-toggle="modal" data-target="#modModal"> 
-							<i class="fa fa-edit"> 수정</i> 
-						</a> 
-					</span> 
-				<span class="description"></span> 
-				</div> 
-				<div class="oldReplyText">
-					{{reply_text}}
-				</div> 
-				<br/> 
+		<div class="post replyDiv" data-reply_no={{reply_no}}> 
+			<div class="user-block"> 
+				<img class="img-circle img-bordered-sm" src="${path}/dist/img/user1-128x128.jpg" alt="user image"> 
+				<span class="username">
+					<a href="#">{{reply_writer}}</a> 
+									{{#eqReplyWriter reply_writer}} 
+					<a href="#" class="float-right btn-box-tool replyDelBtn" data-toggle="modal" data-target="#delModal"> 
+						<i class="fa fa-times"> 삭제</i> 
+					</a> 
+					<a href="#" class="float-right btn-box-tool replyModBtn" data-toggle="modal" data-target="#modModal"> 
+						<i class="fa fa-edit"> 수정</i>
+					</a> 
+									{{/eqReplyWriter}} 
+				</span> 
+				<span class="description">{{prettifyDate reg_date}}</span> 
 			</div> 
+			<div class="oldReplyText">{{reply_text}}</div> 
+			<br/> 
+		</div> 
 		{{/each}} 
 	</script>
 

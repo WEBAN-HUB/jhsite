@@ -65,9 +65,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										<textarea class="form-control" id="content" name="content"
 											rows="30" placeholder="내용을 입력해주세요" style="resize: none;"></textarea>
 									</div>
-									<div class="form-group">
-										<label for="writer">작성자</label> <input class="form-control"
-											id="writer" name="writer">
+									<div class="form-group" hidden>
+										<label for="writer">작성자</label>
+										 <input class="form-control"
+											id="writer" name="writer" value="${login.userId}" readonly>
 									</div>
 								</div>
 								<div class="card-footer">
