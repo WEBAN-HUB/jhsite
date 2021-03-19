@@ -28,6 +28,11 @@
 		class="com.jhsite.practice.commons.interceptor.LoginInterceptor" />
 	<beans:bean id="authInterceptor"
 		class="com.jhsite.practice.commons.interceptor.AuthInterceptor" />
+	<beans:bean id="rememberMeInterceptor" 
+		class="com.jhsite.practice.commons.interceptor.RememberMeInterceptor"/>
+	<beans:bean id="loginAfterInterceptor"
+		class="com.jhsite.practice.commons.interceptor.LoginAfterInterceptor"/>
+	
 	
 	<interceptors>
 		<interceptor>
@@ -40,6 +45,15 @@
 			<mapping path="/article/paging/search/remove" />
 			<mapping path="/user/info" />
 			<beans:ref bean="authInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/**/"/>
+			<beans:ref bean="rememberMeInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/user/login"/>
+			<mapping path="/user/register"/>
+			<beans:ref bean="loginAfterInterceptor"/>
 		</interceptor>
 	</interceptors>
 

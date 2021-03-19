@@ -10,11 +10,20 @@ public class ReplyVO {
 	private String reply_writer;
 	private Date reg_date;
 	private Date update_date;
+	private UserVO userVO;
+	
+	public UserVO getUserVO() {
+		return userVO;
+	}
+
+	public void setUserVO(UserVO userVO) {
+		this.userVO = userVO;
+	}
 
 	@Override
 	public String toString() {
 		return "ReplyVO [reply_no=" + reply_no + ", article_no=" + article_no + ", reply_text=" + reply_text
-				+ ", reply_writer=" + reply_writer + ", reg_date=" + reg_date + ", update_date=" + update_date + "]";
+				+ ", reply_writer=" + reply_writer + ", reg_date=" + reg_date + ", update_date=" + update_date + ", userVO=" +userVO + "]";
 
 	}
 

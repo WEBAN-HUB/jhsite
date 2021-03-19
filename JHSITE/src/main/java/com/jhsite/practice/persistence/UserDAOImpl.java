@@ -1,5 +1,9 @@
 package com.jhsite.practice.persistence;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -31,5 +35,25 @@ public class UserDAOImpl implements UserDAO {
 	public UserVO login(LoginDTO loginDTO) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(NAMESPACE+".login",loginDTO);
+	}
+	
+	//로그인 유지 처리
+	@Override
+	public void keepLogin(String userId, String sessionId, Date SessionLimit) throws Exception {
+		// TODO Auto-generated method stub
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("userId", userId);
+		paramMap.put("sessionId", sessionId);
+		paramMap.put("sessionLimit", SessionLimit);
+		
+		sqlSession.update(NAMESPACE+".keepLogin", paramMap);
+		
+	}
+	
+	//세션키 검증
+	@Override
+	public UserVO checkUserWithSessionKey(String value) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(NAMESPACE+".checkUserWithSessionKey",value);
 	}
 }
